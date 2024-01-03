@@ -1,0 +1,19 @@
+Host me.github.com
+    HostName github.com
+    IdentityFile ~/.ssh/id_gh_me
+
+Host umg.github.com
+    HostName github.com
+    IdentityFile ~/.ssh/id_ed_umusic
+
+Host amps.bitbucket.org
+    HostName bitbucket.org
+    IdentityFile ~/.ssh/id_bb_amps
+
+Host cherreco.github.com
+    HostName github.com
+    IdentityFile ~/.ssh/id_cherre
+
+Host allergan.github.com
+    HostName github.com
+    IdentityFile ~/.ssh/id_allergan_rsa
