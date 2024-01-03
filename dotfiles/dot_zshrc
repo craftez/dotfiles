@@ -1,0 +1,26 @@
+# Fig pre block. Keep at the top of this file.
+export LANG=en_US.UTF-8
+export CPPFLAGS="${CPPFLAGS+"$CPPFLAGS "}-I/opt/homebrew/opt/unixodbc/include"
+export KERL_CONFIGURE_OPTIONS="--with-ssl=$(brew --prefix openssl@3) --with-odbc=$(brew --prefix unixodbc)"
+export CC="/usr/bin/clang -I$(brew --prefix unixodbc)/include"
+export LDFLAGS=-L$(brew --prefix unixodbc)/lib
+export PATH="$HOME/.tmuxifier/bin:/opt/homebrew/opt/openjdk/bin:$PATH"
+export ZELLIJ_CONFIG_FILE="$HOME/.config/zellij/config.kdl"
+
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+eval "$(tmuxifier init -)"
+alias ls="colorls"
+
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_available
+export DRGN_C_PATH=/Users/eduardozamora/Documents/amps/dragonc/dragonc
+export PATH=/Users/Shared/DBngin/postgresql/11.0/bin:$PATH
+
+alias dragonc="/Users/eduardozamora/Documents/amps/dragonc/dragonc"
+alias vim="nvim"
+alias code="code --profile Craftez"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+

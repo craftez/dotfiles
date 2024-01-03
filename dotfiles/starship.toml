@@ -1,0 +1,195 @@
+# # Get editor completions based on the config schema
+# "$schema" = 'https://starship.rs/config-schema.json'
+
+# # Disable the blank line at the start of the prompt
+# add_newline = false
+
+# format = '$username$hostname:$directory(\[$git_branch$git_commit$git_state$git_status\])$character'
+
+# [character]
+# success_symbol = '[\$](bright-white)'
+# error_symbol = '[\$](bright-white)'
+
+# [directory]
+# truncate_to_repo = false
+# style = "bold blue"
+# format = "[$path]($style)"
+
+# [username]
+# style_user = "bold green"
+# format = "[$user@]($style)"
+# show_always = true
+
+# [hostname]
+# style = "bold green"
+# format = "[$hostname]($style)"
+# ssh_only = false
+
+# [git_branch]
+# style = "bright-white"
+# format = "[$branch(:$remote_branch)]($style)"
+
+# [git_commit]
+# style = "white"
+# format = "[@$hash$tag]($style)"
+
+# [git_state]
+# format = '\([$state( $progress_current/$progress_total)]($style)\)'
+
+# [git_status]
+# conflicted = ' =${count}'
+# ahead = ' ⇡${count}'
+# behind = ' ⇣${count}'
+# diverged = ' ⇡${ahead_count}⇣${behind_count}'
+# untracked = ' [?${count}](bright-cyan)'
+# stashed = ' *${count}'
+# modified = ' [!${count}](yellow)'
+# staged = ' [+${count}](yellow)'
+# renamed = ' [»${count}](yellow)'
+# deleted = ' [✘${count}](bright-red)'
+
+# format = '[([:](bright-white)$ahead_behind$all_status)]($style)'
+# style = "bright-green"
+
+###################################
+
+format = """
+$username\
+$hostname\
+$localip\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$package\
+$python\
+$nodejs\
+$gcloud\
+$env_var\
+$sudo\
+$cmd_duration\
+$line_break\
+$status\
+$container\
+$shell\
+$character"""
+
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+[aws]
+disabled = true
+# symbol = "  "
+
+[buf]
+# symbol = " "
+
+[c]
+# symbol = " "
+
+[conda]
+# symbol = " "
+
+[character]
+success_symbol = "[❯](bold #fac357)"
+
+[dart]
+# symbol = " "
+
+[directory]
+# read_only = " "
+
+[docker_context]
+# symbol = " "
+
+[elixir]
+# symbol = " "
+
+[elm]
+# symbol = " "
+
+[git_branch]
+# symbol = " "
+
+[gcloud]
+format = 'on [$symbol$account(@$domain)(\($region\))]($style) '
+disabled = true
+
+[golang]
+# symbol = " "
+
+[hostname]
+ssh_only = false
+style = "#cf2062"
+
+[haskell]
+# symbol = " "
+
+[hg_branch]
+disabled = true
+# symbol = " "
+
+[java]
+# symbol = " "
+
+[julia]
+disabled = true
+# symbol = " "
+
+[lua]
+disabled = true
+# symbol = " "
+
+[memory_usage]
+# symbol = " "
+
+[meson]
+# symbol = "喝 "
+
+[nim]
+# symbol = " "
+
+[nix_shell]
+# symbol = " "
+
+[nodejs]
+# symbol = " "
+detect_folders = []
+detect_files = ["package.json", ".node-version"]
+detect_extensions = []
+
+
+[package]
+# symbol = " "
+
+[python]
+# symbol = " "
+detect_files = ["pyproject.toml"]
+
+[rlang]
+# symbol = "ﳒ "
+
+[ruby]
+# symbol = " "
+
+[rust]
+# symbol = " "
+
+[scala]
+# symbol = " "
+
+[spack]
+symbol = "🅢 "
+
+[username]
+format = "[$user]($style) at "
+style_root = "bold #FF5236"
+style_user = "#f02aae"
+show_always = true
