@@ -1,0 +1,40 @@
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+
+[user]
+  name = Eduardo Zamora
+  email = "eduzambl@gmail.com"
+
+[alias]
+  co = checkout
+  branch-name = "!git rev-parse --avvrev-ref HEAD"
+  fresh = "!git co master && git pull && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	freshm = "!git co main && git pull && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	publish = "!git push -u origin $(git branch-name)"
+
+[color]
+	ui = true
+
+[core]
+	excludesfile = ~/.gitignore_global
+	quotepath = false
+	editor = subl -n -w
+	autocrlf = input
+
+[rebase]
+	autosquash = true
+
+[push]
+	default = simple
+
+[pull]
+	rebase = true
+
+[init]
+	defaultBranch = main
+
+[merge]
+	conflictStyle = diff3

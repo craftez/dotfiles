@@ -8,8 +8,8 @@ return {
     options = {
       theme = "codedark", -- "auto, tokyonight, catppuccin, codedark, nord
       disabled_filetypes = {
-        "neo-tree"
-      }
+        "neo-tree",
+      },
     },
     sections = {
       lualine_c = {

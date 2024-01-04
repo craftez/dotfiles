@@ -1,11 +1,11 @@
-vim.api.nvim_create_augroup("bufcheck", { clear = true })
+-- vim.api.nvim_create_augroup("bufcheck", { clear = true })
 
 -- reload config file on change
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = "bufcheck",
-	pattern = vim.env.MYVIMRC,
-	command = "silent source %",
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+-- 	group = "bufcheck",
+-- 	pattern = vim.env.MYVIMRC,
+-- 	command = "silent source %",
+-- })
 
 local api = vim.api
 
