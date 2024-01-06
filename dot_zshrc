@@ -9,7 +9,6 @@ export ZELLIJ_CONFIG_FILE="$HOME/.config/zellij/config.kdl"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-eval "$(tmuxifier init -)"
 alias ls="colorls"
 
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
