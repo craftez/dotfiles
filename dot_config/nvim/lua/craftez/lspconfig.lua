@@ -32,6 +32,8 @@ local M = {
 					"tflint",
 					"tsserver",
 					"yamlls",
+          "emmet_language_server",
+          "emmet_ls"
 				}
 
 				require("mason").setup({
