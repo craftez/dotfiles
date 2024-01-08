@@ -46,7 +46,15 @@ function M.config()
   require("mason").setup()
   require("mason-lspconfig").setup {
     ensure_installed = {
-      "lua_ls", "clangd", "jsonls", "yamlls", "elixirls", "emmet_ls", "emmet_language_server", "tsserver", "html"
+      "lua_ls",
+      "clangd",
+      "jsonls",
+      "yamlls",
+      "elixirls",
+      "emmet_ls",
+      "tsserver",
+      "html",
+      "cssls"
     },
     handlers = {
       lsp_zero.default_setup,
@@ -81,6 +89,19 @@ function M.config()
           }
         }
       end,
+      emmet_ls = function()
+        lspconfig.emmet_ls.setup {
+          settings = {
+            init_options = {
+              html = {
+                options = {
+                  ["bem.enabled"] = true
+                }
+              }
+            }
+          }
+        }
+      end
     }
   }
 end
