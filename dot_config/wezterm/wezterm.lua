@@ -8,6 +8,7 @@ if wezterm.config_builder then config = wezterm.config_builder() end
 
 -- Settings
 config.color_scheme = "Tokyo Night"
+config.font_size = 16
 -- config.font = wezterm.font_with_fallback({
 --  { family = "CaskaydiaCove Nerd Font",  scale = 1.2 },
 --  { family = "FantasqueSansM Nerd Font", scale = 1.2 },
