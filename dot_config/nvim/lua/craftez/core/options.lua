@@ -1,42 +1,59 @@
-local opt = vim.opt -- alias
+local opt = vim.opt
 
--- line numbers
-opt.relativenumber = true -- show relative line numbers
-opt.number = true -- shows absolute line number on cursor line (when relative number is on)
+opt.backup = false -- creates a backup file
+opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
+opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
+opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
+opt.conceallevel = 0 -- so that `` is visible in markdown files
+-- opt.fileencoding = "utf-8" -- the encoding written to a file
+opt.hlsearch = true -- highlight all matches on previous search pattern
+opt.ignorecase = true -- ignore case in search patterns
+opt.mouse = "a" -- allow the mouse to be used in neovim
+opt.pumheight = 10 -- pop up menu height
+opt.pumblend = 10
+opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
+opt.showtabline = 1 -- always show tabs
+opt.smartcase = true -- smart case
+opt.smartindent = true -- make indenting smarter again
+opt.splitbelow = true -- force all horizontal splits to go below current window
+opt.splitright = true -- force all vertical splits to go to the right of current window
+opt.swapfile = false -- creates a swapfile
+opt.termguicolors = true -- set term gui colors (most terminals support this)
+opt.timeoutlen = 1000 -- time to wait for a mapped sequence to complete (in milliseconds)
+opt.undofile = true -- enable persistent undo
+opt.updatetime = 100 -- faster completion (4000ms default)
+opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+opt.expandtab = true -- convert tabs to spaces
+opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
+opt.tabstop = 2 -- insert 2 spaces for a tab
+opt.cursorline = true -- highlight the current line
+opt.number = true -- set numbered lines
+opt.laststatus = 3
+opt.showcmd = false
+opt.ruler = false
+opt.relativenumber = true -- set relative numbered lines
+opt.numberwidth = 4 -- set number column width to 2 {default 4}
+opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
+opt.wrap = false -- display lines as one long line
+opt.scrolloff = 0
+opt.sidescrolloff = 8
+opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
+opt.title = false
+-- colorcolumn = "80",
+-- colorcolumn = "120",
+opt.fillchars = vim.opt.fillchars + "eob: "
+opt.fillchars:append {
+  stl = " ",
+}
 
--- tabs & indentation
-opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
-opt.shiftwidth = 2 -- 2 spaces for indent width
-opt.expandtab = true -- expand tab to spaces
-opt.autoindent = true -- copy indent from current line when starting new one
+opt.shortmess:append "c"
 
--- line wrapping
-opt.wrap = false -- disable line wrapping
+vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd [[set iskeyword+=-]]
 
--- search settings
-opt.ignorecase = true -- ignore case when searching
-opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
+vim.g.netrw_banner = 0
+vim.g.netrw_mouse = 2
 
--- cursor line
-opt.cursorline = true -- highlight the current cursor line
-
--- appearance
-
--- turn on termguicolors for nightfly colorscheme to work
--- (have to use iterm2 or any other true color terminal)
-opt.termguicolors = true
-opt.background = "dark" -- colorschemes that can be light or dark will be made dark
-opt.signcolumn = "yes" -- show sign column so that text doesn't shift
-
--- backspace
-opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
-
--- clipboard
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
-
--- split windows
-opt.splitright = true -- split vertical window to the right
-opt.splitbelow = true -- split horizontal window to the bottom
-
--- turn off swapfile
-opt.swapfile = false
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
