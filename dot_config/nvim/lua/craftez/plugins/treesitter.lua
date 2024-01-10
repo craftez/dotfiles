@@ -36,6 +36,9 @@ local M = {
 		indent = {
 			enable = true,
 		},
+		autotag = {
+			enable = true,
+		},
 	},
 }
 
@@ -46,8 +49,8 @@ function M.config(_, opts)
 	wk.register({
 		name = "Treesitter",
 		T = {
-      i = { ":TSConfigInfo<CR>", "Info" }
-    }
+			i = { ":TSConfigInfo<CR>", "Info" },
+		},
 	})
 end
 
