@@ -7,7 +7,8 @@ function M.config()
 	local wk = require("which-key")
 
 	wk.register({
-		["<leader>e"] = { "<CMD>NvimTreeToggle<CR>", "Explorer" },
+		["<leader>e"] = { "<CMD>NvimTreeToggle<CR>", "Explorer (root)" },
+    ["<leader>E"] = { "<CMD>NvimTreeFindFileToggle nzzzv<CR>", "Explorer (cwd)"}
 	})
 
 	local function my_on_attach(bufnr)

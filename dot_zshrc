@@ -1,4 +1,21 @@
 # Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+#############################
+#              __
+#  ____  _____/ /_  __________
+# /_  / / ___/ __ \/ ___/ ___/
+#  / /_(__  ) / / / /  / /__
+# /___/____/_/ /_/_/   \___/
+##############################
+
+# Vim mode
+bindkey -v
+
+# Env Var
+export EDITOR=nvim
+export XDF_CONFIG_HOME="$HOME/.config"
+
+# Fig pre block. Keep at the top of this file.
 export LANG=en_US.UTF-8
 export CPPFLAGS="${CPPFLAGS+"$CPPFLAGS "}-I/opt/homebrew/opt/unixodbc/include"
 export KERL_CONFIGURE_OPTIONS="--with-ssl=$(brew --prefix openssl@3) --with-odbc=$(brew --prefix unixodbc)"
@@ -40,3 +57,11 @@ bindkey -s ^a "nvims\n"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
+# Sourcing
+if [[ -t 0 ]]; then
+  source ~/dotfiles/zsh/greetings.zsh
+  zsh_greeting
+fi
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
