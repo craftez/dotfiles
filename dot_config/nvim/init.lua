@@ -1,1 +1,2 @@
-require "craftez"
+require "craftez.core"
+require "craftez.lazy"

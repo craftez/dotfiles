@@ -1,26 +1,28 @@
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
+  vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
+    "--branch=stable", -- latest stable release
     lazypath,
-  }
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup {
-  spec = LAZY_PLUGIN_SPEC,
+require("lazy").setup({
+  { import = "craftez.plugins" },
+  { import = "craftez.plugins.lsp" },
+}, {
   install = {
-    colorscheme = { "primer_dark", "habamax" },
+    colorscheme = { "solarized-osaka" },
   },
-  ui = {
-    border = "rounded",
+  checker = {
+    enabled = true,
+    notify = true,
   },
   change_detection = {
-    enabled = true,
     notify = false,
-  },
-}
+  }
+})
