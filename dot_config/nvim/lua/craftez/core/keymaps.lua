@@ -15,16 +15,15 @@ kmap("i", "jk", "<ESC>", { desc = "Exit insert mode with 'jk'" })
 kmap("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- Delete a word backwards
-kmap("n", "dw", 'vb"_d')
+-- kmap("n", "dw", 'vb"_d')
 
 -- Select all
 kmap("n", "<C-a>", "gg<S-v>G")
 
 -- Better window navigation
 kmap("n", "<m-tab>", "<c-6>", opts)
-kmap("n", "ss", ":split<CR>", opts) -- Split window 
+kmap("n", "ss", ":split<CR>", opts) -- Split window
 kmap("n", "sv", ":vsplit<CR>", opts)
-kmap("n", "<C-w>x", "<C-w>")
 
 -- Move window
 kmap("n", "sh", "<C-w>h")
@@ -39,10 +38,9 @@ kmap("n", "<C-w><up>", "<C-w>+")
 kmap("n", "<C-w><down>", "<C-w>-")
 -- <C-w>= to make them equal
 
-
 -- Buffer navigation
 kmap("n", "[b", "<CMD>bprevious<CR>", { desc = "Previous Buffer" })
-kmap("n", "]b", "<CMD>bnext<CR>", {desc = "Next Buffer" })
+kmap("n", "]b", "<CMD>bnext<CR>", { desc = "Next Buffer" })
 
 -- Better viewing
 kmap("n", "n", "nzzzv", opts)
@@ -69,8 +67,8 @@ kmap("n", "<A-k>", ":m .-2<CR>==")
 kmap("v", "<A-k>", ":m '<-2<CR>gv=gv")
 kmap("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
 
-vim.cmd [[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]]
-vim.cmd [[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]]
+vim.cmd([[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]])
+vim.cmd([[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]])
 -- vim.cmd [[:amenu 10.120 mousemenu.-sep- *]]
 
 kmap("n", "<RightMouse>", "<cmd>:popup mousemenu<CR>")
