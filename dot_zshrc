@@ -40,6 +40,7 @@ alias code="code --profile Craftez"
 
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 alias nvim-chad="NVIM_APPNAME=NvChad nvim"
+alias nvim-neo="NVIM_APPNAME=NeoVim nvim"
 
 function nvims() {
   items("default", "LazyVim", "NvChad")
