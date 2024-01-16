@@ -257,4 +257,15 @@ return {
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
     opts = {},
   },
+
+  -- Git Blame
+  {
+    'f-person/git-blame.nvim',
+    event = 'BufRead',
+    keys = {
+      {"<leader>gb", "<CMD>GitBlameToggle<CR>", desc = "Toggle GitBlame"}
+    },
+    config = true
+  }
+
 }
