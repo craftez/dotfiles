@@ -8,10 +8,10 @@ M.on_attach = function(_, bufnr)
     vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
-  nmap("gr", require("telescope.builtin").lsp_references, "Goto References")
-  nmap("gi", require("telescope.builtin").lsp_implementations, "Goto Implementation")
-  nmap("go", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+  nmap("gd", "<cmd>Telescope lsp_definitions<CR>", "Goto Definition")
+  nmap("gr", "<cmd>Telescope lsp_references<CR>", "Goto References")
+  nmap("gi", "<cmd>Telescope lsp_implementations<CR>", "Goto Implementation")
+  nmap("go", "<cmd>Telescope lsp_type_definitions<CR>", "Type Definition")
   -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   nmap("gl", vim.diagnostic.open_float, "Open Diagnostic Float")

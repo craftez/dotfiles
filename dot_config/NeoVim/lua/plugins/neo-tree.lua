@@ -8,8 +8,9 @@ return {
     "MunifTanjim/nui.nvim"
   },
   keys = {
-    { "<leader>e", ":Neotree toggle float<CR>", silent = true, desc = "Float file explorer" },
-    { "<leader><tab>", ":Neotree toggle left<CR>", silent = true, desc = "Left file explorer" },
+    { "<leader>ee", ":Neotree toggle left<CR>", silent = true, desc = "Open file explorer" },
+    -- { "<leader><tab>", ":Neotree toggle left<CR>", silent = true, desc = "Left file explorer" },
+    { "<leader>ef", ":Neotree reveal toggle left<CR>", silent = true, desc = "Explore file" }
   },
   config = function()
     require("neo-tree").setup({
