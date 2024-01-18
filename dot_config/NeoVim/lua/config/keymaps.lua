@@ -43,8 +43,8 @@ map({ "n", "x", "o" }, "H", "^", opts)
 map({ "n", "x", "o" }, "L", "g_", opts)
 
 -- Navigate buffers
-map("n", "<C-Right>", ":bnext<CR>", opts)
-map("n", "<C-Left>", ":bprevious<CR>", opts)
+map("n", "<M-Right>", ":bnext<CR>", opts)
+map("n", "<M-Left>", ":bprevious<CR>", opts)
 map("n", "ss", ":split<CR>", opts)
 map("n", "sv", ":vsplit<CR>", opts)
 
