@@ -43,8 +43,8 @@ map({ "n", "x", "o" }, "H", "^", opts)
 map({ "n", "x", "o" }, "L", "g_", opts)
 
 -- Navigate buffers
-map("n", "<Right>", ":bnext<CR>", opts)
-map("n", "<Left>", ":bprevious<CR>", opts)
+map("n", "<C-Right>", ":bnext<CR>", opts)
+map("n", "<C-Left>", ":bprevious<CR>", opts)
 map("n", "ss", ":split<CR>", opts)
 map("n", "sv", ":vsplit<CR>", opts)
 
@@ -92,7 +92,7 @@ map("n", "<C-n>", ":w %:h/", opts)
 
 -- delete forward
 -- w{number}dw
--- delete backward
 -- w{number}db
+-- delete backward
 
 -- map("n", "<C-P>", ":lua require('config.utils').toggle_go_test()<CR>", opts)
