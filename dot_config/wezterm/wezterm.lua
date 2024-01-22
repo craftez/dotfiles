@@ -4,6 +4,12 @@ local utils = require("utils")
 local wezterm = require("wezterm")
 
 local config = {
+	audible_bell = "Disabled",
+	inactive_pane_hsb = {
+		hue = 1.0,
+		saturation = 1.0,
+		brightness = 1.0,
+	},
 	-- Theming
 	colors = colors,
 	color_scheme = "Bearded-gale",
@@ -17,9 +23,10 @@ local config = {
 		top = "10px",
 		bottom = "0px",
 	},
+	leader = { key = "a", mods = "CTRL" },
+	disable_default_key_bindings = true,
 	-- Keys setup
 	keys = keys,
-	-- disable_default_key_bindings = true,
 	-- Functionalities
 	enable_scroll_bar = true,
 	enable_tab_bar = false,
