@@ -1,5 +1,5 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+# CodeWhisperer pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 #############################
 #              __
 #  ____  _____/ /_  __________
@@ -38,12 +38,11 @@ alias dragonc="/Users/eduardozamora/Documents/amps/dragonc/dragonc"
 alias vim="nvim"
 alias code="code --profile Craftez"
 
-alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
-alias nvim-chad="NVIM_APPNAME=NvChad nvim"
 alias nvim-neo="NVIM_APPNAME=NeoVim nvim"
+alias nvim-chad="NVIM_APPNAME=NvChad nvim"
 
 function nvims() {
-  items("default", "LazyVim", "NvChad")
+  items("default", "NvChad", "NeoVim")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"
@@ -64,5 +63,5 @@ if [[ -t 0 ]]; then
   zsh_greeting
 fi
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+# CodeWhisperer post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
