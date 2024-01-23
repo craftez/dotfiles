@@ -1,30 +1,45 @@
 local wezterm = require("wezterm")
 local M = {}
 
-function M.listenerZenMode()
-	wezterm.on("user-var-changed", function(window, pane, name, value)
-		local overrides = window:get_config_overrides() or {}
-		if name == "ZEN_MODE" then
-			local incremental = value:find("+")
-			local number_value = tonumber(value)
+--- Merges two tables, overwriting common elements from table_b
+--- @param ... table[]
+--- @return table
+function M.merge(...)
+	local args = table.pack(...)
+	local merged = {}
 
-			if incremental ~= nil then
-				while number_value > 0 do
-					window:perform_action(wezterm.action.IncreaseFontSize, pane)
-					number_value = number_value - 1
-				end
-				overrides.enable_tab_bar = false
-			elseif number_value < 0 then
-				window:perform_action(wezterm.action.ResetFontSize, pane)
-				overrides.font_size = nil
-				overrides.enable_tab_bar = true
-			else
-				overrides.font_size = number_value
-				overrides.enable_tab_bar = false
-			end
+	for i = 1, args.n do
+		if type(args[i]) == "string" then
+			error(args[i])
 		end
-		window:set_config_overrides(overrides)
-	end)
+		for k, v in pairs(args[i]) do
+			merged[k] = v
+		end
+	end
+
+	return merged
+end
+
+--- @param module string
+--- @return any
+function M.req(module)
+	local m = require(module)
+	return m
+end
+
+--- Returns a new list with function applied to each element of the list
+--- @generic T
+--- @generic G
+--- @param list T[]
+--- @param func fun(t: T): G
+--- @return G[]
+function M.map(list, func)
+	local mapped = {}
+	for i, v in ipairs(list) do
+		mapped[i] = func(v)
+	end
+
+	return mapped
 end
 
 return M
