@@ -10,18 +10,8 @@ return {
 	-- color scheme
 	colors = colors,
 
-	-- background
-	background = {
-		{
-			source = { File = wezterm.GLOBAL.background },
-		},
-		{
-			source = { Color = colors.background },
-			height = "100%",
-			width = "100%",
-			opacity = 0.96,
-		},
-	},
+	-- background transparent
+	window_background_opacity = 0.93,
 
 	-- scrollbar
 	enable_scroll_bar = true,
