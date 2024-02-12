@@ -1,3 +1,5 @@
+# CodeWhisperer pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 eval export HOMEBREW_PREFIX="/opt/homebrew";
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
 export HOMEBREW_REPOSITORY="/opt/homebrew";
@@ -5,8 +7,6 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 
-# CodeWhisperer pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 #############################
 #              __
 #  ____  _____/ /_  __________
@@ -40,24 +40,16 @@ export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_available
 
 alias vim="nvim"
-alias code="code --profile Craftez"
+alias nnvim="NVIM_APPNAME=nnvim nvim"
 
-alias nvim-neo="NVIM_APPNAME=NeoVim nvim"
-alias nvim-chad="NVIM_APPNAME=NvChad nvim"
+alias c="clear"
+alias e="exit"
 
-function nvims() {
-  items("default", "NvChad", "NeoVim")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
-  if [[ -z $config ]]; then
-    echo "Nothing selected"
-    return 0
-  elif [[ $config == "default" ]]; then
-    config=""
-  fi
-  NVIM_APPNAME=$config nvim $@
-}
+alias ela="exa -a --group-directories--first --icons"
+alias n="nvim"
 
-bindkey -s ^a "nvims\n"
+alias gs="git status -s"
+alias gc="(){git commit -m $1}"
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
@@ -66,6 +58,9 @@ if [[ -t 0 ]]; then
   source ~/dotfiles/zsh/greetings.zsh
   zsh_greeting
 fi
+
+source /opt/homebrew/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+export PATH=~/bin:$PATH
 
 # CodeWhisperer post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
