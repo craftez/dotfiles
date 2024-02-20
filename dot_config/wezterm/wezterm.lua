@@ -9,7 +9,7 @@ if wezterm.config_builder then
 end
 
 -- Settings
-config.color_scheme = "Batman"
+config.color_scheme = "Rosé Pine (Gogh)"
 config.font = wezterm.font_with_fallback({
 	{ family = "MonoLisa", scale = 1.3 },
 })
