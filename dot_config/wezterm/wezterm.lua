@@ -1,169 +1,168 @@
+-- pull wezterm api
 local wezterm = require("wezterm")
+local mux = wezterm.mux
 local act = wezterm.action
 
+local size_adjust = 2
+
+-- this table will hold the configuration
 local config = {}
 
--- Use config builder object if possible
+-- In newer versions of wezterm, use the config_builder which will help provide clearer error messages
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- Settings
-config.color_scheme = "Rosé Pine (Gogh)"
-config.font = wezterm.font_with_fallback({
-	{ family = "MonoLisa", scale = 1.3 },
-})
-config.macos_window_background_blur = 30
-config.window_background_opacity = 0.9
+-- CHanging the color scheme
+config.font = wezterm.font("MonoLisa")
+config.font_size = 16
+config.line_height = 1.2
 config.adjust_window_size_when_changing_font_size = false
-config.native_macos_fullscreen_mode = false
-config.window_close_confirmation = "AlwaysPrompt"
-config.window_decorations = "RESIZE"
-config.scrollback_lines = 3000
-config.default_workspace = "main"
+config.hide_tab_bar_if_only_one_tab = true
+config.use_dead_keys = false
 
-config.window_padding = {
-	left = 4,
-	right = 4,
-	top = 4,
-	bottom = 4,
+config.macos_window_background_blur = 30
+config.window_background_opacity = 0.98
+
+-- Tab configuration
+config.window_frame = {
+	font = wezterm.font({ family = "MonoLisa", weight = "Regular" }),
+	border_left_width = 0,
+	border_right_width = 0,
+	border_bottom_height = 0,
+	border_top_height = 0,
+}
+
+config.scrollback_lines = 5000
+config.front_end = "OpenGL"
+
+config.window_decorations = "RESIZE"
+
+wezterm.on("gui-startup", function()
+	local tab, pane, window = mux.spawn_window({})
+	window:gui_window():maximize()
+end)
+
+config.window_padding = { -- For a full HD monitor
+	left = 0,
+	right = 0,
+	top = 1,
+	bottom = 1,
 }
 
 config.inactive_pane_hsb = {
-	saturation = 0.24,
-	brightness = 0.5,
+	saturation = 0.7,
+	brightness = 0.6,
 }
 
--- Keys
-config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+
+config.window_background_image_hsb = {
+	-- Darken the background image by reducing it to 1/3rd
+	brightness = 0.3,
+
+	-- You can adjust the hue by scaling its value.
+	-- a multiplier of 1.0 leaves the value unchanged.
+	hue = 1.0,
+
+	-- You can adjust the saturation also.
+	saturation = 0.5,
+}
+config.key_map_preference = "Physical"
+
+config.disable_default_key_bindings = true
+
+config.color_scheme = "rose-pine-moon"
+config.color_schemes = {
+	["Gruvbox Dark Hard"] = {
+		foreground = "#ebdbb2",
+		background = "#1d2021",
+		cursor_bg = "#ebdbb2",
+		cursor_fg = "#333333",
+		cursor_border = "#ebdbb2",
+		selection_fg = "#333333",
+		selection_bg = "#ebdbb2",
+		scrollbar_thumb = "#333333",
+		split = "#333333",
+		ansi = {
+			"#282828",
+			"#cc241d",
+			"#98971a",
+			"#d79921",
+			"#458588",
+			"#b16286",
+			"#689d6a",
+			"#a89984",
+		},
+		brights = {
+			"#928374",
+			"#fb4934",
+			"#b8bb26",
+			"#fabd2f",
+			"#83a598",
+			"#d3769b",
+			"#8ec07c",
+			"#ebdbb2",
+		},
+	},
+}
+
 config.keys = {
-	-- Send C-a when pressing C-a twice
-	{ key = "a", mods = "LEADER", action = act.SendKey({ key = "a", mods = "CTRL" }) },
-	{ key = "c", mods = "LEADER", action = act.ActivateCopyMode },
-	{ key = "phys:Space", mods = "LEADER", action = act.ActivateCommandPalette },
-	-- Pane Keybindings
-	{ key = "s", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
-	{ key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-	{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
-	{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
-	{ key = "q", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
-	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
-	{ key = "o", mods = "LEADER", action = act.RotatePanes("Clockwise") },
-	-- We can make separate keybindings for resizing panes
-	-- But wezterm offers custom 'mode' in the name of "KeyTable"
-	{ key = "r", mods = "LEADER", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
-	-- Tab keybindings
-	{ key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
-	{ key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
-	{ key = "]", mods = "LEADER", action = act.ActivateTabRelative(1) },
-	{
-		key = "e",
-		mods = "leader",
-		action = act.PromptInputLine({
-			description = wezterm.format({
-				{ Attribute = { Intensity = "Bold" } },
-				{ Foreground = { AnsiColor = "Fuchsia" } },
-				{ Text = "Renaming Tab Title..." },
-			}),
-			action = wezterm.action_callback(function(window, _pane, line)
-				if line then
-					window:active_tab():set_title(line)
-				end
-			end),
-		}),
-	},
-	-- key table for moving tabs around
-	{ key = "m", mods = "LEADER", action = act.ActivateKeyTable({ name = "move_tab", one_shot = false }) },
-	-- Or shortcuts to move tab w/o move_tab table. SHIFT is for when caps lock is on
-	{ key = "{", mods = "LEADER", action = act.MoveTabRelative(-1) },
-	{ key = "}", mods = "LEADER", action = act.MoveTabRelative(1) },
-	-- Lastly workspace
-	{ key = "w", mode = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+	{ key = "P",          mods = "ALT",        action = act.ActivateCommandPalette },
+	{ key = "u",          mods = "ALT",        action = act.ShowDebugOverlay },
+
+	{ key = "Tab",        mods = "CTRL",       action = act.ActivateTabRelative(1) },
+	{ key = "Tab",        mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
+	{ key = "Tab",        mods = "ALT",        action = act.MoveTabRelative(1) },
+	{ key = "Tab",        mods = "ALT|SHIFT",  action = act.MoveTabRelative(-1) },
+
+	{ key = "PageUp",     mods = "",           action = act.ScrollByPage(-1) },
+	{ key = "PageDown",   mods = "",           action = act.ScrollByPage(1) },
+
+	{ key = ",",          mods = "ALT",        action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = ".",          mods = "ALT",        action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+
+	{ key = "h",          mods = "ALT",        action = act.ActivatePaneDirection("Left") },
+	{ key = "j",          mods = "ALT",        action = act.ActivatePaneDirection("Down") },
+	{ key = "k",          mods = "ALT",        action = act.ActivatePaneDirection("Up") },
+	{ key = "l",          mods = "ALT",        action = act.ActivatePaneDirection("Right") },
+
+	{ key = "RightArrow", mods = "ALT",        action = act.ActivatePaneDirection("Right") },
+	{ key = "UpArrow",    mods = "ALT",        action = act.ActivatePaneDirection("Up") },
+	{ key = "DownArrow",  mods = "ALT",        action = act.ActivatePaneDirection("Down") },
+	{ key = "LeftArrow",  mods = "ALT",        action = act.ActivatePaneDirection("Left") },
+
+	{ key = "H",          mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Left", size_adjust }) },
+	{ key = "J",          mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Down", size_adjust }) },
+	{ key = "K",          mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Up", size_adjust }) },
+	{ key = "L",          mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Right", size_adjust }) },
+
+	{ key = "LeftArrow",  mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Left", size_adjust }) },
+	{ key = "DownArrow",  mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Down", size_adjust }) },
+	{ key = "UpArrow",    mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Up", size_adjust }) },
+	{ key = "RightArrow", mods = "ALT|SHIFT",  action = act.AdjustPaneSize({ "Right", size_adjust }) },
+
+	{ key = "c",          mods = "ALT",        action = act.CopyTo("Clipboard") },
+	{ key = "v",          mods = "ALT",        action = act.PasteFrom("Clipboard") },
+	{ key = "Enter",      mods = "CTRL",       action = act.ActivateCopyMode },
+
+	{ key = "r",          mods = "ALT",        action = act.ReloadConfiguration },
+
+	{ key = "+",          mods = "ALT",        action = act.IncreaseFontSize },
+	{ key = "+",          mods = "ALT|SHIFT",  action = act.IncreaseFontSize },
+	{ key = "-",          mods = "ALT",        action = act.DecreaseFontSize },
+	{ key = "0",          mods = "ALT",        action = act.ResetFontSize },
+	{ key = "=",          mods = "ALT",        action = act.ResetFontSize },
+
+	{ key = "n",          mods = "ALT",        action = act.SpawnWindow },
+	{ key = "t",          mods = "CTRL",       action = act.SpawnTab("CurrentPaneDomain") },
+	--  { key = 'w', mods = 'CTRL', action = act.CloseCurrentTab{ confirm = false } }, -- Causes conflict with window-managing on neovim
+	{ key = "W",          mods = "ALT",        action = act.CloseCurrentPane({ confirm = false }) },
+
+	{ key = "C",          mods = "ALT|SHIFT",  action = act.ClearScrollback("ScrollbackAndViewport") },
+
+	{ key = "f",          mods = "ALT",        action = act.Search({ Regex = "" }) },
+
+	{ key = "h",          mods = "ALT",        action = wezterm.action.Hide },
 }
-
--- I can use the tab navigator (LDR t), but I also want to quickly navigate tabs with index
-for i = 1, 9 do
-	table.insert(config.keys, {
-		key = tostring(i),
-		mods = "LEADER",
-		action = act.ActivateTab(i - 1),
-	})
-end
-
-config.key_tables = {
-	resize_pane = {
-		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
-		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "Escape", action = "PopKeyTable" },
-		{ key = "Enter", action = "PopKeyTable" },
-	},
-	move_tab = {
-		{ key = "h", action = act.MoveTabRelative({ "Left", 1 }) },
-		{ key = "l", action = act.MoveTabRelative({ "Right", 1 }) },
-		{ key = "j", action = act.MoveTabRelative({ "Down", 1 }) },
-		{ key = "k", action = act.MoveTabRelative({ "Up", 1 }) },
-		{ key = "Escape", action = "PopKeyTable" },
-		{ key = "Enter", action = "PopKeyTable" },
-	},
-}
-
--- Tab bar
-config.use_fancy_tab_bar = false
-config.status_update_interval = 1000
-config.tab_bar_at_bottom = false
-
-wezterm.on("update-status", function(window, pane)
-	-- Workspace name
-	local stat = window:active_workspace()
-	local stat_color = "#f7768e"
-
-	if window:active_key_table() then
-		stat = window:active_key_table()
-		stat_color = "#7dcfff"
-	end
-
-	if window:leader_is_active() then
-		stat = "LDR"
-		stat_color = "#bb9af7"
-	end
-
-	-- Current workking directoryzz
-	local basename = function(s)
-		return string.gsub(s, "(.*[/\\])(.*)", "%2")
-	end
-
-	-- CWD and CMD could be nil
-	local cwd = pane:get_current_working_dir()
-	cwd = cwd and basename(cwd) or ""
-	-- Current CMD
-	local cmd = pane:get_foreground_process_name()
-	cmd = cmd and basename(cmd) or ""
-
-	-- Time
-	local time = wezterm.strftime("%H:%M")
-
-	-- Left status
-	window:set_left_status(wezterm.format({
-		{ Foreground = { Color = stat_color } },
-		{ Text = " " },
-		{ Text = wezterm.nerdfonts.oct_table .. " " .. stat },
-		{ Text = " |" },
-	}))
-
-	window:set_right_status(wezterm.format({
-		{ Text = wezterm.nerdfonts.md_folder .. " " .. cwd },
-		{ Text = " | " },
-		{ Foreground = { Color = "#e0af68" } },
-		{ Text = wezterm.nerdfonts.fa_code .. " " .. cmd },
-		"ResetAttributes",
-		{ Text = " | " },
-		{ Text = wezterm.nerdfonts.md_clock .. " " .. time },
-		{ Text = " " },
-	}))
-end)
 
 return config
