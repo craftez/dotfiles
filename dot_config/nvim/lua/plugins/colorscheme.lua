@@ -1,13 +1,16 @@
 return {
   {
     "folke/tokyonight.nvim",
-    opts = {
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
-    },
+    opts = { style = "night", transparent = true },
+  },
+  {
+    "sainnhe/sonokai",
+    priority = 1000,
+    config = function()
+      vim.g.sonokai_transparent_background = "1"
+      vim.g.sonokai_enable_italic = 1
+      vim.g.sonokai_style = "andromeda"
+    end,
   },
   {
     "rebelot/kanagawa.nvim",
@@ -43,9 +46,15 @@ return {
     end,
   },
   {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+    opts = { flavour = "macchiato" },
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "cyberdream",
+      colorscheme = "kanagawa",
     },
   },
 }
