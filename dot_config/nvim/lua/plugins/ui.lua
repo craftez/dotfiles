@@ -1,228 +1,135 @@
 return {
-  {
-    "nvimdev/dashboard-nvim",
-    enabled = false,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    enabled = false,
-  },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
-  },
-  -- messages, cmdline and the popupmenu
-  {
-    "folke/noice.nvim",
-    opts = function(_, opts)
-      table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          find = "No information available",
-        },
-        opts = { skip = true },
-      })
-      local focused = true
-      vim.api.nvim_create_autocmd("FocusGained", {
-        callback = function()
-          focused = true
-        end,
-      })
-      vim.api.nvim_create_autocmd("FocusLost", {
-        callback = function()
-          focused = false
-        end,
-      })
-      table.insert(opts.routes, 1, {
-        filter = {
-          cond = function()
-            return not focused
-          end,
-        },
-        view = "notify_send",
-        opts = { stop = false },
-      })
+  { "lukas-reineke/indent-blankline.nvim",                 enabled = false },
 
-      opts.commands = {
-        all = {
-          -- options for the message history that you get with `:Noice`
-          view = "split",
-          opts = { enter = true, format = "details" },
-          filter = {},
-        },
-      }
-
-      opts.presets.lsp_doc_border = true
-    end,
-  },
   {
     "rcarriga/nvim-notify",
-    opts = {
-      timeout = 5000,
-      background_colour = "#000000",
-      render = "wrapped-compact",
+    keys = {
+      { "<leader>un", false },
     },
   },
+
+  { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+
+  {
+    "stevearc/dressing.nvim",
+    module = "dressing",
+    opts = {
+      select = {
+        telescope = require("telescope.themes").get_cursor(),
+      },
+    },
+  },
+
   {
     "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
-    },
     opts = {
       options = {
-        mode = "tabs",
+        tab_size = 0,
         show_buffer_close_icons = false,
         show_close_icon = false,
-      },
-    },
-  },
-  -- filename
-  {
-    "b0o/incline.nvim",
-    dependencies = {},
-    event = "BufReadPre",
-    priority = 1200,
-    config = function()
-      local helpers = require("incline.helpers")
-      require("incline").setup({
-        window = {
-          padding = 0,
-          margin = { horizontal = 0 },
-        },
-        render = function(props)
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-          local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
-          local modified = vim.bo[props.buf].modified
-          local buffer = {
-            ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
-            " ",
-            { filename, gui = modified and "bold,italic" or "bold" },
-            " ",
-            guibg = "#363944",
+        always_show_bufferline = true,
+        separator_style = { "", "" },
+        groups = {
+          items = {
+            require("bufferline.groups").builtin.pinned:with({ icon = "" })
           }
-          return buffer
-        end,
-      })
-    end,
-  },
-  -- LazyGit integration with telescope
-  {
-    "kdheepak/lazygit.nvim",
-    keys = {
-      {
-        ";c",
-        ":LazyGit<Return>",
-        silent = true,
-        noremap = true,
+        },
       },
-    },
-    -- optional for floating window border decoration
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  {
-    "kristijanhusak/vim-dadbod-ui",
-    dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
-      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
-    },
-    cmd = {
-      "DBUI",
-      "DBUIToggle",
-      "DBUIAddConnection",
-      "DBUIFindBuffer",
-    },
-    init = function()
-      -- Your DBUI configuration
-      vim.g.db_ui_use_nerd_fonts = 1
-    end,
-    keys = {
-      {
-        "<leader>DB",
-        "<cmd>NvimTreeClose<cr><cmd>tabnew<cr><bar><bar><cmd>DBUI<cr>",
-        desc = "DB UI",
+      highlights = {
+        buffer_selected = {
+          italic = false,
+        },
       },
     },
   },
-  {
-    "nvim-tree/nvim-tree.lua",
-    config = function()
-      require("nvim-tree").setup({
-        on_attach = function(bufnr)
-          local api = require("nvim-tree.api")
 
-          local function opts(desc)
-            return {
-              desc = "nvim-tree: " .. desc,
-              buffer = bufnr,
-              noremap = true,
-              silent = true,
-              nowait = true,
-            }
-          end
+  { -- statusline
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      local icons = require("lazyvim.config").icons
+      local Util = require("lazyvim.util")
+      return vim.tbl_deep_extend("force", opts, {
+        options = {
+          section_separators = "",
+          component_separators = "",
+        },
+        sections = {
+          lualine_a = {
+            -- show first letter of mode only
+            { "mode", fmt = function(str) return str:sub(1, 1) end },
+          },
+          lualine_b = {
+            "branch",
+            "diff",
+          },
+          lualine_c = {
+            {
+              "diagnostics",
+              symbols = {
+                error = icons.diagnostics.Error,
+                warn = icons.diagnostics.Warn,
+                info = icons.diagnostics.Info,
+                hint = icons.diagnostics.Hint,
+              },
+            },
+            { Util.lualine.pretty_path() },
+          },
+          lualine_x = { "encoding", "fileformat" },
+          lualine_y = {
+            {
+              function() return require("noice").api.status.mode.get() end,
+              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+              color = Util.ui.fg("Constant"),
+            },
+            {
+              function() return "  " .. require("dap").status() end,
+              cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+              color = Util.ui.fg("Debug"),
+            },
+            "searchcount",
+          },
+          lualine_z = {
+            { "progress" },
+            { "location", padding = { left = 0, right = 1 } },
+          },
 
-          -- default mappings
-          api.config.mappings.default_on_attach(bufnr)
-
-          -- custom mappings
-          vim.keymap.set("n", "t", api.node.open.tab, opts("Tab"))
-        end,
-        actions = {
-          open_file = {
-            quit_on_open = true,
-          },
-        },
-        sort = {
-          sorter = "case_sensitive",
-        },
-        view = {
-          width = 30,
-          relativenumber = true,
-        },
-        renderer = {
-          group_empty = true,
-        },
-        filters = {
-          dotfiles = true,
-          custom = {
-            "node_modules/.*",
-          },
-        },
-        log = {
-          enable = true,
-          truncate = true,
-          types = {
-            diagnostics = true,
-            git = true,
-            profile = true,
-            watcher = true,
-          },
         },
       })
-
-      if vim.fn.argc(-1) == 0 then
-        vim.cmd("NvimTreeFocus")
-      end
     end,
   },
+
   {
-    "folke/trouble.nvim",
-    -- opts will be merged with the parent spec
-    opts = { use_diagnostic_signs = true },
-  },
-  {
-    "stevearc/oil.nvim",
+    "folke/noice.nvim",
     opts = {
-      skip_confirm_for_simple_edits = true,
-      view_options = {
-        show_hidden = true,
+      cmdline = {
+        view = "cmdline",
+        format = {
+          cmdline = { icon = ":" },
+        },
       },
-      float = {
-        padding = 8,
+      messages = {
+        view_search = false,
+      },
+      presets = {
+        command_palette = false,
+        lsp_doc_border = true,
       },
     },
+  },
+
+  {
+    "stevearc/stickybuf.nvim",
+    opts = {
+      get_auto_pin = function(buf)
+        if vim.bo[buf].filetype == "Outline" then
+          return "filetype"
+        end
+      end,
+    },
+  },
+
+  {
+    "lewis6991/cleanfold.nvim",
+    config = true,
   },
 }
