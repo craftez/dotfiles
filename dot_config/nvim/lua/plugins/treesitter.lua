@@ -1,8 +1,7 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  opts = {
-    auto_install = true,
-    ensure_installed = {
+  opts = function(_, opts)
+    vim.list_extend(opts.ensure_installed, {
       "bash",
       "html",
       "javascript",
@@ -13,12 +12,13 @@ return {
       "python",
       "query",
       "regex",
+      "toml",
       "tsx",
       "typescript",
       "vim",
       "yaml",
       "elixir",
       "java",
-    },
-  },
+    })
+  end,
 }
