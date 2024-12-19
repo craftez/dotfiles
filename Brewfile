@@ -2,7 +2,6 @@ tap "homebrew/bundle"
 tap "buo/cask-upgrade"
 
 # Binaries
-brew "autoenv"
 brew "coreutils"
 brew "fzf"
 brew "jq"
@@ -11,7 +10,6 @@ brew "zoxide"
 brew "gnupg"
 brew "pinentry-mac"
 brew "eza"
-
 brew "mise"
 brew "direnv"
 brew "starship"
