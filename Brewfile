@@ -39,5 +39,7 @@ cask "slack"
 cask "visual-studio-code"
 cask "1password"
 cask "google-chrome"
+cask "windsurf"
+cask "tableplus"
 
 mas "Xcode", id: 497799835
