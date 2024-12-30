@@ -41,5 +41,6 @@ cask "1password"
 cask "google-chrome"
 cask "windsurf"
 cask "tableplus"
+cask "ghostty"
 
 mas "Xcode", id: 497799835
