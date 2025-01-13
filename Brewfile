@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 tap "buo/cask-upgrade"
+tap "timothyye/tap"
 
 # Binaries
 brew "coreutils"
@@ -33,6 +34,7 @@ brew "neovim"
 brew "zellij"
 brew "git"
 brew "lazygit"
+brew "timothyye/tap/skm"
 
 cask "font-iosevka-nerd-font"
 cask "raycast"
