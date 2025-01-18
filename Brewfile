@@ -51,5 +51,6 @@ cask "arc"
 cask "alt-tab"
 cask "hiddenbar"
 cask "stats"
+cask "nikitabobko/tap/aerospace"
 
 mas "Xcode", id: 497799835
