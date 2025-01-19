@@ -11,6 +11,7 @@ setopt HIST_IGNORE_DUPS
 #add timestamp for each entry
 setopt EXTENDED_HISTORY
 
+
 # Install Zap plugin manager
 # zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] & source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
@@ -33,6 +34,11 @@ eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
 # Atuin Configs
 eval "$(atuin init zsh)"
+
+# Carapace
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
 
 # Setup FZF
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
@@ -76,3 +82,5 @@ alias lg="lazygit"
 
 # Added by Windsurf
 export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
+
+PATH=~/.console-ninja/.bin:$PATH
