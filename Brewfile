@@ -19,6 +19,7 @@ brew "starship"
 brew "atuin"
 brew "tldr"
 brew "yazi"
+brew "tree"
 
 # Mac Setup
 brew "stow"
