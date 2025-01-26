@@ -56,5 +56,8 @@ cask "alt-tab"
 cask "hiddenbar"
 cask "stats"
 cask "nikitabobko/tap/aerospace"
+cask "spotify"
+cask "omnifocus"
+cask "capacities"
 
 mas "Xcode", id: 497799835
