@@ -58,6 +58,12 @@ export FZF_TMUX_OPTS=" -p90%,70% "
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
+export PNPM_HOME="/Users/ez/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 # Added by Windsurf
 export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
 
@@ -79,8 +85,28 @@ alias gc="git commit -m"
 alias glog="git log --oneline --graph --all"
 alias lg="lazygit"
 
+# unbind ctrl g in terminal
+bindkey -r "^G"
 
 # Added by Windsurf
 export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
 
 PATH=~/.console-ninja/.bin:$PATH
+
+# Added by Windsurf
+export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/ez/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun completions
+[ -s "/Users/ez/.bun/_bun" ] && source "/Users/ez/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
