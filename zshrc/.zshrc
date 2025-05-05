@@ -65,7 +65,7 @@ case ":$PATH:" in
 esac
 
 # Added by Windsurf
-export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
+export PATH="$HOME/.codeium/windsurf/bin:$HOME/.gem/ruby/2.6.0/bin:$PATH"
 
 # aliases
 alias cd=z
