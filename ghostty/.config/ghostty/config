@@ -3,8 +3,8 @@
 # theme = rose-pine
 config-file = themes/rosepine
 background = #000000
-background-opacity = 0.85
-background-blur-radius = 20
+background-opacity = 0.70
+background-blur-radius = 40
 
 # Font settings
 font-family = Iosevska Nerd Font Mono
