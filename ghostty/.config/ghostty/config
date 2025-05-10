@@ -10,7 +10,7 @@ background-blur-radius = 40
 font-family = Iosevska Nerd Font Mono
 font-size = 20
 cursor-style = block
-cursor-style-blink = false
+cursor-style-blink = true
 cursor-invert-fg-bg = true
 
 macos-titlebar-style = transparent

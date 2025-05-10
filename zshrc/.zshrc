@@ -11,16 +11,10 @@ setopt HIST_IGNORE_DUPS
 #add timestamp for each entry
 setopt EXTENDED_HISTORY
 
-
 # Install Zap plugin manager
 # zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] & source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 
-plug "zsh-users/zsh-autosuggestions"
-plug "zap-zsh/supercharge"
-plug "zap-zsh/zap-prompt"
-plug "zsh-users/zsh-syntax-highlighting"
-plug "junegunn/fzf-git.sh"
 
 # Load and initialize completion system
 autoload -Uz compinit
@@ -35,11 +29,18 @@ eval "$(mise activate zsh)"
 # Atuin Configs
 eval "$(atuin init zsh)"
 
+plug "zsh-users/zsh-autosuggestions"
+plug "zap-zsh/supercharge"
+plug "zsh-users/zsh-syntax-highlighting"
+plug "junegunn/fzf-git.sh"
+plug "wintermi/zsh-starship"
+
 # Carapace
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 source <(carapace _carapace)
 
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 # Setup FZF
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -87,9 +88,6 @@ alias lg="lazygit"
 
 # unbind ctrl g in terminal
 bindkey -r "^G"
-
-# Added by Windsurf
-export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
 
 PATH=~/.console-ninja/.bin:$PATH
 
