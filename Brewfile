@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "buo/cask-upgrade"
-tap "timothyye/tap"
 tap "FelixKratz/formulae"
 
 # Binaries
@@ -35,7 +34,6 @@ brew "gh"
 brew "neovim"
 brew "git"
 brew "lazygit"
-brew "timothyye/tap/skm"
 brew "carapace"
 brew "borders"
 brew "tmux"
