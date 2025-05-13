@@ -12,6 +12,12 @@ return {
     opts = {
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
       provider = "claude", -- Recommend using claude
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "calude-3-5-sonnet-20241022",
+        temperature = 0,
+        max_tokens = 4096,
+      },
       openai = {
         endpoint = "https://api.openai.com/v1",
         model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
