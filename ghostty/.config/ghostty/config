@@ -7,8 +7,8 @@ background-opacity = 0.70
 background-blur-radius = 40
 
 # Font settings
-font-family = IBM Plex Mono
-font-size = 20
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 12
 cursor-style = block
 cursor-style-blink = true
 cursor-invert-fg-bg = true
