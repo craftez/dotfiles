@@ -61,7 +61,7 @@ yellow = '#E5C07B'
 status = "#e23140"
 
 [os]
-format = '(fg:current_line)[](fg:red)[$symbol](fg:primary bg:red)[](fg:red)'
+format = '(fg:current_line)[](fg:red)[ $symbol ](fg:primary bg:red)[](fg:red)'
 disabled = false
 
 [os.symbols]
@@ -86,7 +86,7 @@ Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 
 [status]
-format = "[─](fg:current_line)[](fg:status)[](fg:primary bg:status)[](fg:status bg:box)[ $status](fg:foreground bg:box)[](fg:box)"
+format = "[─](fg:current_line)[](fg:status)[  ](fg:primary bg:status)[](fg:status bg:box)[ $status](fg:foreground bg:box)[](fg:box)"
 pipestatus = true
 pipestatus_separator = "-"
 pipestatus_segment_format = "$status"
@@ -161,7 +161,7 @@ style = 'fg:current_line'
 
 [cmd_duration]
 min_time = 500
-format = '[─](fg:current_line)[](fg:orange)[](fg:primary bg:orange)[](fg:orange bg:box)[ $duration](fg:foreground bg:box)[](fg:box)'
+format = '[─](fg:current_line)[](fg:orange)[  ](fg:primary bg:orange)[](fg:orange bg:box)[ $duration](fg:foreground bg:box)[](fg:box)'
 
 [time]
 format = '[─](fg:current_line)[](fg:purple)[ 󰦖 ](fg:primary bg:purple)[](fg:purple bg:box)[ $time](fg:foreground bg:box)[](fg:box)'
@@ -175,8 +175,8 @@ show_always = true
 [character]
 format = """
 [╰─$symbol](fg:current_line) """
-success_symbol = '[](fg:bold white)'
-error_symbol = '[×](fg:bold red)'
+success_symbol = '[  ](fg:bold white)'
+error_symbol = '[ × ](fg:bold red)'
 
 [profiles]
 transient = """$character"""
