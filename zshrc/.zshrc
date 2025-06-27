@@ -12,7 +12,7 @@ setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY
 
 # Setup keys
-export BRAVE_API_KEY=$(pass api_keys/brave_api_key)
+# export BRAVE_API_KEY=$(pass api_keys/brave_api_key)
 
 # Install Zap plugin manager
 # zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
@@ -25,25 +25,25 @@ compinit
 
 # Connect to third party
 eval "$(fzf --zsh)"
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
-# Atuin Configs
 eval "$(atuin init zsh)"
 
 plug "zsh-users/zsh-autosuggestions"
 plug "zap-zsh/supercharge"
 plug "zsh-users/zsh-syntax-highlighting"
 plug "junegunn/fzf-git.sh"
-plug "wintermi/zsh-starship"
+# plug "wintermi/zsh-starship"
+plug ""
 
 # Carapace
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 source <(carapace _carapace)
 
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+# export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 # Setup FZF
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -105,9 +105,33 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+precmd() {
+  export TERMINAL_WIDTH=$(tput cols)
+
+  if [[ $TERMINAL_WIDTH -lt 80 ]]; then
+    SPACESHIP_GIT_SHOW=false
+    SPACESHIP_TIME_SHOW=false
+    SPACESHIP_EXEC_TIME_SHOW=false
+    SPACESHIP_NODE_SHOW=false
+    SPACESHIP_PACKAGE_SHOW=false
+    SPACESHIP_DIR_TRUNC=1
+  else
+    SPACESHIP_GIT_SHOW=true
+    SPACESHIP_TIME_SHOW=true
+    SPACESHIP_EXEC_TIME_SHOW=true
+    SPACESHIP_NODE_SHOW=true
+    SPACESHIP_PACKAGE_SHOW=true
+    SPACESHIP_DIR_TRUNC=3
+  fi
+}
+
+
 # bun completions
 [ -s "/Users/ez/.bun/_bun" ] && source "/Users/ez/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH=~/.npm-global/bin:$PATH
+alias claude="/Users/eduardozamora/.claude/local/claude"
+source /opt/homebrew/opt/spaceship/spaceship.zsh
