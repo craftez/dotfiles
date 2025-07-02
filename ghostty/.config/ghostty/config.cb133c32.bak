@@ -70,4 +70,3 @@ keybind = super+b>l=goto_split:right
 #Shaders
 # custom-shader = shaders/bettercrt.glsl
 # custom-shader = shaders/retro-terminal.glsl
-keybind = shift+enter=text:\n

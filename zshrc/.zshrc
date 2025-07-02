@@ -12,7 +12,8 @@ setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY
 
 # Setup keys
-export BRAVE_API_KEY=$(pass api_keys/brave_api_key)
+# export BRAVE_API_KEY=$(pass api_keys/brave_api_key)
+export OPENAI_API_KEY=$(pass openai/api_key) 
 
 # Install Zap plugin manager
 # zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
