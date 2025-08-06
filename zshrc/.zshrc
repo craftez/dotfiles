@@ -13,7 +13,7 @@ setopt EXTENDED_HISTORY
 
 # Setup keys
 # export BRAVE_API_KEY=$(pass api_keys/brave_api_key)
-export OPENAI_API_KEY=$(pass openai/api_key) 
+# export OPENAI_API_KEY=$(pass openai/api_key) 
 
 # Install Zap plugin manager
 # zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
@@ -28,7 +28,6 @@ compinit
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
-eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
 # Atuin Configs
 eval "$(atuin init zsh)"
@@ -73,7 +72,6 @@ esac
 export PATH="$HOME/.codeium/windsurf/bin:$HOME/.gem/ruby/2.6.0/bin:$PATH"
 
 # aliases
-alias cd=z
 alias c="clear"
 alias e="exit"
 alias ls="eza --no-filesize --no-time --no-permissions"
@@ -112,3 +110,9 @@ esac
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+if [ -z "$DISABLE_ZOXIDE" ]; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
