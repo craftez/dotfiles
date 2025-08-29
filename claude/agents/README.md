@@ -58,6 +58,10 @@ contains-studio-agents/
 │   ├── reddit-community-builder.md
 │   ├── tiktok-strategist.md
 │   └── twitter-engager.md
+├── mobile/
+│   ├── html-to-ios-converter.md
+│   ├── mobile-ui-implementer.md
+│   ├── mobile-ux-engineer.md
 ├── product/
 │   ├── feedback-synthesizer.md
 │   ├── sprint-prioritizer.md
@@ -107,6 +111,11 @@ contains-studio-agents/
 - **reddit-community-builder** - Win Reddit without being banned
 - **tiktok-strategist** - Create shareable marketing moments
 - **twitter-engager** - Ride trends to viral engagement
+
+### Mobile Department (`mobile/`)
+- **html-to-ios-converter** - Turn web designs into native iOS apps
+- **mobile-ui-implementer** - Build pixel-perfect mobile interfaces
+- **mobile-ux-engineer** - Optimize mobile user experiences
 
 ### Design Department (`design/`)
 - **brand-guardian** - Keep visual identity consistent everywhere
@@ -226,6 +235,12 @@ Use this checklist when creating or modifying agents for your specific needs:
 - [ ] Platform-specific content needs
 - [ ] Growth opportunity identification
 - [ ] Brand positioning tasks
+
+**Mobile Agents** need examples for:
+- [ ] iOS-specific implementation
+- [ ] Android-specific implementation
+- [ ] Cross-platform UI/UX tasks
+- [ ] Native app optimization
 
 **Product Agents** need examples for:
 - [ ] Feature prioritization decisions
