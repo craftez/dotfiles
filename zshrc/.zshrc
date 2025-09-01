@@ -116,3 +116,5 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 if [ -z "$DISABLE_ZOXIDE" ]; then
     eval "$(zoxide init --cmd cd zsh)"
 fi
+# opencode
+export PATH=/Users/ez/.opencode/bin:$PATH
