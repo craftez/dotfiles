@@ -114,7 +114,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
 if [ -z "$DISABLE_ZOXIDE" ]; then
-    eval "$(zoxide init --cmd cd zsh)"
+    eval "$(zoxide init zsh --cmd cd)"
 fi
 # opencode
 export PATH=/Users/ez/.opencode/bin:$PATH
