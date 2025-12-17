@@ -1,120 +1,87 @@
-#set history size
-export HISTSIZE=10000
-#save history after logout
-export SAVEHIST=10000
-#history file
-export HISTFILE=~/.zhistory
-#append into history file
-setopt INC_APPEND_HISTORY
-#save only one command if 2 common are same and consistent
-setopt HIST_IGNORE_DUPS
-#add timestamp for each entry
-setopt EXTENDED_HISTORY
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Setup keys
-# export BRAVE_API_KEY=$(pass api_keys/brave_api_key)
-# export OPENAI_API_KEY=$(pass openai/api_key) 
+export ZSH="$HOME/.oh-my-zsh"
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$HOME/.cargo/bin:$HOME/.volta/bin:$HOME/.bun/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:$HOME/.config:$HOME/.cargo/bin:/usr/local/lib/*:$PATH"
 
-# Install Zap plugin manager
-# zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
-[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] & source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
+# Set nvim as default editor for opencode and other tools
+export EDITOR="nvim"
+export VISUAL="nvim"
 
+if [[ $- == *i* ]]; then
+    # Commands to run in interactive sessions can go here
+fi
 
-# Load and initialize completion system
-autoload -Uz compinit
-compinit
+export LS_COLORS="di=38;5;67:ow=48;5;60:ex=38;5;132:ln=38;5;144:*.tar=38;5;180:*.zip=38;5;180:*.jpg=38;5;175:*.png=38;5;175:*.mp3=38;5;175:*.wav=38;5;175:*.txt=38;5;223:*.sh=38;5;132"
+if [[ "$(uname)" == "Darwin" ]]; then
+  alias ls='ls --color=auto'
+else
+  alias ls='gls --color=auto'
+fi
 
-# Connect to third party
-eval "$(fzf --zsh)"
-eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
-eval "$(mise activate zsh)"
-# Atuin Configs
-eval "$(atuin init zsh)"
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS
+    BREW_BIN="/opt/homebrew/bin"
+else
+    # Linux
+    BREW_BIN="/home/linuxbrew/.linuxbrew/bin"
+fi
 
-plug "zsh-users/zsh-autosuggestions"
-plug "zap-zsh/supercharge"
-plug "zsh-users/zsh-syntax-highlighting"
-plug "junegunn/fzf-git.sh"
-plug "wintermi/zsh-starship"
+# Usar la variable BREW_BIN donde se necesite
+eval "$($BREW_BIN/brew shellenv)"
 
-# Carapace
+source $(dirname $BREW_BIN)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $(dirname $BREW_BIN)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(dirname $BREW_BIN)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(dirname $BREW_BIN)/share/powerlevel10k/powerlevel10k.zsh-theme
+
+export PROJECT_PATHS="/home/alanbuscaglia/work"
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_DEFAULT_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exlude .git"
+
+WM_VAR="/$TMUX"
+# change with ZELLIJ
+WM_CMD="tmux"
+# change with zellij
+
+function start_if_needed() {
+    if [[ $- == *i* ]] && [[ -z "${WM_VAR#/}" ]] && [[ -t 1 ]]; then
+        exec $WM_CMD
+    fi
+}
+
+# alias
+alias fzfbat='fzf --preview="bat --theme=gruvbox-dark --color=always {}"'
+alias fzfnvim='nvim $(fzf --preview="bat --theme=gruvbox-dark --color=always {}")'
+
+#plugins
+plugins=(
+  command-not-found
+)
+
+source $ZSH/oh-my-zsh.sh
+
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 source <(carapace _carapace)
 
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-# Setup FZF
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh --cmd cd)"
+eval "$(atuin init zsh)"
+eval "$(mise activate zsh)"
 
-export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Setup fzf previews
-export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --icons=always --tree --color=always {} | head -200'"
+start_if_needed
 
-# fzf preview for tmux
-export FZF_TMUX_OPTS=" -p90%,70% "
-
-# Setup fzf previews
-export FZF_CTRL_T_OPTS="--preview 'bat --color=always -n --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-
-export PNPM_HOME="/Users/ez/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-# Added by Windsurf
-export PATH="$HOME/.codeium/windsurf/bin:$HOME/.gem/ruby/2.6.0/bin:$PATH"
-
-# aliases
-alias c="clear"
-alias e="exit"
-alias ls="eza --no-filesize --no-time --no-permissions"
-
-# tree
-alias tree="tree -L 3 -a -I '.git' --charset X "
-alias dtree="tree -L 3 -a -d -I '.git' --charset X "
-
-# Git aliases
-alias gt="git"
-alias ga="git add ."
-alias gs="git status -s"
-alias gc="git commit -m"
-alias glog="git log --oneline --graph --all"
-alias lg="lazygit"
-
-# unbind ctrl g in terminal
-bindkey -r "^G"
-
-PATH=~/.console-ninja/.bin:$PATH
-
-# Added by Windsurf
-export PATH="/Users/ez/.codeium/windsurf/bin:$PATH"
-
-# pnpm
-export PNPM_HOME="/Users/ez/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# bun completions
-[ -s "/Users/ez/.bun/_bun" ] && source "/Users/ez/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
-
-if [ -z "$DISABLE_ZOXIDE" ]; then
-    eval "$(zoxide init zsh --cmd cd)"
-fi
 # opencode
-export PATH=/Users/ez/.opencode/bin:$PATH
+export PATH=/Users/edu/.opencode/bin:$PATH
+
+# Claude Code Templates - Global Agents
+export PATH="/Users/edu/.claude-code-templates/bin:$PATH"
