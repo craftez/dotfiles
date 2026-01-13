@@ -39,15 +39,11 @@ source $(dirname $BREW_BIN)/share/zsh-syntax-highlighting/zsh-syntax-highlightin
 source $(dirname $BREW_BIN)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(dirname $BREW_BIN)/share/powerlevel10k/powerlevel10k.zsh-theme
 
-export PROJECT_PATHS="/home/alanbuscaglia/work"
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_DEFAULT_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exlude .git"
+export ENABLE_LSP_TOOL=1
 
-WM_VAR="/$TMUX"
-# change with ZELLIJ
-WM_CMD="tmux"
-# change with zellij
 
 function start_if_needed() {
     if [[ $- == *i* ]] && [[ -z "${WM_VAR#/}" ]] && [[ -t 1 ]]; then
@@ -85,3 +81,9 @@ export PATH=/Users/edu/.opencode/bin:$PATH
 
 # Claude Code Templates - Global Agents
 export PATH="/Users/edu/.claude-code-templates/bin:$PATH"
+
+# bun completions
+[ -s "/Users/edu/.bun/_bun" ] && source "/Users/edu/.bun/_bun"
+
+# Amp CLI
+export PATH="/Users/edu/.amp/bin:$PATH"

@@ -13,12 +13,11 @@ cursor-style = block
 cursor-style-blink = true
 cursor-invert-fg-bg = true
 
-macos-titlebar-style = transparent
+# macos-titlebar-style = transparent
 macos-option-as-alt = true
 mouse-hide-while-typing = true
 
 confirm-close-surface = false
-window-decoration = true
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
@@ -32,7 +31,6 @@ copy-on-select = clipboard
 
 # Custom Keybinds & Config (super represents cmd key on mac)
 # For Simple Keybinds
-# keybind = super+r=reload_config 
 keybind = super+i=inspector:toggle
 keybind = super+b>,=toggle_quick_terminal
 
@@ -57,8 +55,8 @@ keybind = super+b>8=goto_tab:8
 keybind = super+b>9=goto_tab:9
 
 # splitting
-keybind = super+b>\=new_split:right
-keybind = super+b>-=new_split:down
+keybind = super+b>v=new_split:right
+keybind = super+b>d=new_split:down
 keybind = super+b>e=equalize_splits
 
 # split nav (setting this to control will not work if tmux already uses it)
